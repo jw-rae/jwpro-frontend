@@ -2,10 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  
+
   // Static site generation for Azure Static Web Apps
   ssr: true,
-  
+
   // App Configuration
   app: {
     head: {
@@ -21,7 +21,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  
+
   // Build configuration for static export
   nitro: {
     preset: 'static'
