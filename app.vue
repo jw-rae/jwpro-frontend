@@ -13,14 +13,20 @@ useHead({
     {
       innerHTML: `
         (function() {
-          const savedTheme = localStorage.getItem('theme') || 'default';
+          const savedMode = localStorage.getItem('theme-mode');
+          const savedTheme = localStorage.getItem('theme') || 'blue';
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           
+          // Apply color theme variant if set
           if (savedTheme !== 'default') {
             document.documentElement.setAttribute('data-theme', savedTheme);
           }
-          if (prefersDark) {
-            document.documentElement.classList.add('dark');
+          
+          // Apply dark mode based on saved preference or system preference
+          if (savedMode === 'dark' || (!savedMode && prefersDark)) {
+            document.documentElement.setAttribute('data-color-scheme', 'dark');
+          } else if (savedMode === 'light') {
+            document.documentElement.setAttribute('data-color-scheme', 'light');
           }
         })();
       `,
