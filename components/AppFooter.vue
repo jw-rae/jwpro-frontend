@@ -3,13 +3,13 @@
     <div class="footer-container">
       <span class="footer-copyright">© 2026 Jacqueline Williams</span>
       <div class="footer-links">
-        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+        <a href="https://github.com/jw-rae" target="_blank" rel="noopener" aria-label="GitHub">
           <Icon icon="mdi:github" width="18" height="18" />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/jacqueline-w" target="_blank" rel="noopener" aria-label="LinkedIn">
           <Icon icon="mdi:linkedin" width="18" height="18" />
         </a>
-        <a href="mailto:hello@example.com" aria-label="Email">
+        <a href="mailto:contact@jwpro.net" aria-label="Email">
           <Icon icon="lucide:mail" width="18" height="18" />
         </a>
       </div>

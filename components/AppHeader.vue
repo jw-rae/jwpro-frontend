@@ -2,12 +2,12 @@
   <header class="header">
     <div class="header-container">
       <div class="header-left">
-        <span class="brand-primary">JWPRO.NET</span>
+        <NuxtLink to="/" class="brand-primary">JWPRO.NET</NuxtLink>
       </div>
       <nav class="header-nav">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#rss" class="nav-link">RSS</a>
-        <a href="#pomodoro" class="nav-link">Pomodoro</a>
+        <NuxtLink to="/about" class="nav-link">About</NuxtLink>
+        <NuxtLink to="/rss" class="nav-link">RSS</NuxtLink>
+        <NuxtLink to="/pomodoro" class="nav-link">Pomodoro</NuxtLink>
         <div class="right-group">
           <div class="controls-group">
             <button class="theme-toggle" @click="toggleTheme" aria-label="Toggle theme">
@@ -150,6 +150,7 @@ onMounted(() => {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
+  text-decoration: none;
 }
 
 .header-nav {
@@ -178,7 +179,8 @@ onMounted(() => {
   transition: color var(--duration-200) var(--ease-out);
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.router-link-active {
   color: var(--color-text-primary);
 }
 
