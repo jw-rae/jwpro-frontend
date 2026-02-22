@@ -98,10 +98,15 @@ const selectTheme = (theme) => {
 
 const setLang = (language) => {
   lang.value = language
+  localStorage.setItem('lang', language)
   emit('lang-change', language)
 }
 
 onMounted(() => {
+  // Restore language preference
+  const savedLang = localStorage.getItem('lang')
+  if (savedLang === 'en' || savedLang === 'fr') lang.value = savedLang
+
   // Initialize dark mode state from DOM
   const currentScheme = document.documentElement.getAttribute('data-color-scheme')
   isDarkMode.value = currentScheme === 'dark'
