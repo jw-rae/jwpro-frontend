@@ -20,16 +20,16 @@
                 Greater Paris Area, France
               </p>
             </header>
+            <div style="height: var(--space-sm);"></div>
             <p class="bio-block bio-block--primary">
-              I design resilient geospatial systems at the intersection of
-              <strong>cloud, mapping, and infrastructure</strong>. My work blends
-              <strong>spatial intelligence</strong> with scalable architectures
-              that remain legible over time.
+              I build <strong>digital products that work </strong>. Sometimes they involve <strong>maps</strong>, 
+              sometimes <strong>cloud infrastructure</strong>, sometimes <strong>web apps</strong> — often all three. 
+              <br/><em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em><br/>
+              I thrive figuring things out quickly, well, and in good humour.
             </p>
             <p class="bio-block">
-              I'm drawn to the edge where <strong>engineering precision</strong> meets environmental
-              complexity—building systems that serve both machines and the people who depend
-              on them.
+              Thank you for visiting my corner of the internet. There's more behind the scenes I can't show. 
+              Please reach out if you’d like to discuss anything you’re working on — fellow human behind a screen, take care. 🌍
             </p>
           </div>
         </div>
@@ -71,6 +71,7 @@
                 </li>
               </ul>
             </section>
+            <div style="height: var(--space-lg);"></div>
           </div>
 
           <div class="col col-third cert-col">

@@ -2,6 +2,7 @@
   <footer class="footer">
     <div class="footer-container">
       <span class="footer-copyright">© 2026 Jacqueline Williams</span>
+      <a href="mailto:contact@jwpro.net" class="footer-email">contact@jwpro.net</a>
       <div class="footer-links">
         <a href="https://github.com/jw-rae" target="_blank" rel="noopener" aria-label="GitHub">
           <Icon icon="mdi:github" width="18" height="18" />
@@ -24,18 +25,29 @@ import { Icon } from '@iconify/vue'
 <style scoped>
 .footer {
   flex-shrink: 0;
-  height: calc(var(--space-2xl) + var(--space-md));
   background: var(--color-surface-primary);
   border-top: 1px solid var(--color-border-primary);
   z-index: var(--z-index-40);
 }
 
 .footer-container {
-  height: 100%;
   padding: 0 var(--space-2xl);
+  height: calc(var(--space-2xl) + var(--space-md));
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.footer-email {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--duration-200) var(--ease-out);
+  letter-spacing: 0.01em;
+}
+
+.footer-email:hover {
+  color: var(--color-brand-primary-500);
 }
 
 .footer-copyright {
@@ -67,13 +79,8 @@ import { Icon } from '@iconify/vue'
 
 /* Responsive */
 @media (max-width: 768px) {
-  .footer {
-    height: calc(var(--space-2xl) + var(--space-md));
-  }
-
   .footer-container {
     padding: 0 var(--space-sm);
-    flex-direction: row;
   }
 
   .footer-copyright {
