@@ -34,28 +34,34 @@
               <Icon icon="lucide:chevron-down" width="13" height="13" class="chevron" :class="{ open: sourceMenuOpen }" />
             </button>
 
-            <div v-if="sourceMenuOpen" class="source-menu" role="listbox" aria-multiselectable="true">
+            <div
+              v-if="sourceMenuOpen"
+              class="source-menu"
+              role="listbox"
+            >
               <button
                 v-if="selectedSources.size > 0"
                 class="source-clear"
                 @click="selectedSources = new Set(); resetLimit()"
-              >
-                Clear selection
-              </button>
-              <label
+              >Clear</button>
+              <button
                 v-for="src in availableSources"
                 :key="src"
                 class="source-option"
                 :class="{ checked: selectedSources.has(src) }"
+                role="option"
+                :aria-selected="selectedSources.has(src)"
+                @click="toggleSource(src)"
               >
                 <input
                   type="checkbox"
-                  :checked="selectedSources.has(src)"
-                  @change="toggleSource(src)"
                   class="source-checkbox"
+                  :checked="selectedSources.has(src)"
+                  tabindex="-1"
+                  readonly
                 />
-                <span>{{ src }}</span>
-              </label>
+                {{ src }}
+              </button>
             </div>
           </div>
         </div>
@@ -454,47 +460,56 @@ useSeoMeta({
 
 .source-menu {
   position: absolute;
-  top: calc(100% + var(--space-xs));
-  right: 0;
-  z-index: 50;
-  min-width: 200px;
-  max-height: 320px;
-  overflow-y: auto;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: var(--z-index-40);
+  width: 210px;
+  max-width: calc(100vw - 16px);
   background: var(--color-surface-primary);
   border: 1px solid var(--color-border-primary);
-  border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-lg);
-  padding: var(--space-xs) 0;
+  border-radius: var(--border-radius-xl, 0.75rem);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+  padding: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
 }
 
 .source-clear {
   display: block;
   width: 100%;
   text-align: left;
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   color: var(--color-brand-primary-500);
   background: none;
   border: none;
-  border-bottom: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-md);
   cursor: pointer;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 2px;
+  transition: background var(--duration-200) var(--ease-out);
 }
 
 .source-clear:hover {
-  background: var(--color-surface-secondary);
+  background: color-mix(in srgb, var(--color-brand-primary-500) 8%, transparent);
 }
 
 .source-option {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-md);
+  padding: 6px var(--space-sm);
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: background var(--duration-200) var(--ease-out);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  border-radius: var(--border-radius-md);
+  transition: background var(--duration-200) var(--ease-out), color var(--duration-200) var(--ease-out);
 }
 
 .source-option:hover {
@@ -507,11 +522,21 @@ useSeoMeta({
   font-weight: var(--font-weight-medium);
 }
 
+.source-option.checked .source-checkbox {
+  accent-color: var(--color-brand-primary-500);
+}
+
 .source-checkbox {
   accent-color: var(--color-brand-primary-500);
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.source-option.checked .source-checkbox {
+  opacity: 1;
 }
 
 /* Result count */
