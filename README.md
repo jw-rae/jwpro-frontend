@@ -2,9 +2,23 @@
 
 > GIS Engineer & Azure Cloud Architect Portfolio
 
-A modern, static-first professional website built with Nuxt.js and a token-based design system. Showcases technical skills, projects, and professional experience in GIS engineering, cloud architecture, and software development.
+---
 
-## 🎯 Project Overview
+## Recent Major Changes (2026)
+
+- RSS Industry Radar: Curated tech news page with category/source filters, streaming loading, and HTML-cleaned summaries.
+  - 13-feed list, grouped by GIS, Security, Tech Blog, Tech News, Cloud.
+  - Progressive loading via SSE (items appear as feeds resolve).
+  - Source balancing in "All" view (no single feed dominates).
+  - 3-month cutoff for freshness.
+- Pomodoro Timer: Minimal, token-styled timer page (Work/Break, sound cues, responsive, no header nav link).
+- Header: Language toggle and Pomodoro link removed for a more focused, professional look.
+- UI/UX: All spacing, colors, and typography use the design token system. Mobile and desktop layouts refined for focus and clarity.
+- Code: Strict TypeScript, shared server utils, i18n, and improved HTML parsing for RSS feeds.
+
+---
+
+## Project Overview
 
 **Purpose**: Professional portfolio and credibility hub for recruiters, clients, and technical peers.
 
@@ -14,7 +28,7 @@ A modern, static-first professional website built with Nuxt.js and a token-based
 - **Hosting**: Azure Static Web Apps (planned)
 - **CI/CD**: GitHub Actions (planned)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
