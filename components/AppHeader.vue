@@ -7,7 +7,6 @@
       <nav class="header-nav">
         <NuxtLink to="/about" class="nav-link">About</NuxtLink>
         <NuxtLink to="/rss" class="nav-link">RSS</NuxtLink>
-        <NuxtLink to="/pomodoro" class="nav-link">Pomodoro</NuxtLink>
         <div class="right-group">
           <div class="controls-group">
             <button class="theme-toggle" @click="toggleTheme" aria-label="Toggle theme">
@@ -34,11 +33,6 @@
                 </button>
               </div>
             </div>
-          </div>
-          <div class="lang-switch">
-            <button @click="setLang('en')" :class="{ active: lang === 'en' }" aria-label="English">EN</button>
-            <span class="lang-divider">/</span>
-            <button @click="setLang('fr')" :class="{ active: lang === 'fr' }" aria-label="French">FR</button>
           </div>
         </div>
       </nav>
