@@ -104,4 +104,28 @@ useHead({
   margin: 0 auto;
   padding: 0 var(--space-lg);
 }
+
+/* ── Scrollbar theming (respects all color/dark themes) ─────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-primary) var(--color-surface-secondary);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: var(--border-radius-full, 9999px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-primary-500);
+}
 </style>

@@ -2,11 +2,13 @@
   <header class="header">
     <div class="header-container">
       <div class="header-left">
-        <NuxtLink to="/" class="brand-primary">JWPRO.NET</NuxtLink>
+        <NuxtLink to="/" class="brand-primary" style="padding-left: var(--space-md);">JWPRO.NET</NuxtLink>
       </div>
       <nav class="header-nav">
         <NuxtLink to="/about" class="nav-link">About</NuxtLink>
-        <NuxtLink to="/rss" class="nav-link">RSS</NuxtLink>
+        <NuxtLink to="/rss" class="nav-link nav-link--icon">
+          News
+        </NuxtLink>
         <div class="right-group">
           <div class="controls-group">
             <button class="theme-toggle" @click="toggleTheme" aria-label="Toggle theme">
@@ -176,6 +178,12 @@ onMounted(() => {
   color: var(--color-text-secondary);
   text-decoration: none;
   transition: color var(--duration-200) var(--ease-out);
+}
+
+.nav-link--icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
 }
 
 .nav-link:hover,

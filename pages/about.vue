@@ -1,152 +1,104 @@
 <template>
   <div class="page-shell">
     <AppHeader />
-
     <main class="main-content">
-      <div class="container about-grid">
+      <div class="about-wrap">
 
-        <div class="about-columns">
-          <!-- Left: Intro & Social -->
-          <section class="section intro-section">
-            <h1 class="name-heading">Jacqueline Williams</h1>
-            <p class="subtitle">GIS Architect &amp; Cloud Engineer</p>
-            <p class="location">
-              <Icon icon="lucide:map-pin" width="14" height="14" class="pin-icon" />
-              France
-            </p>
-            <p class="narrative">
-              Designs resilient geospatial systems at the intersection of cloud, mapping, and infrastructure.
-              Drawn to spatial intelligence and scalable architectures that remain legible over time.
-              Works at the edge where engineering precision meets environmental complexity—
-              building systems that serve both machines and the people who depend on them.
-            </p>
-            <div class="about-social">
-              <a href="https://github.com/jw-rae" target="_blank" rel="noopener" aria-label="GitHub">
-                <Icon icon="mdi:github" width="22" height="22" />
-                <span>GitHub</span>
-              </a>
-              <a href="https://www.linkedin.com/in/jacqueline-w" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <Icon icon="mdi:linkedin" width="22" height="22" />
-                <span>LinkedIn</span>
-              </a>
+        <!-- Row 1: Photo + Bio -->
+        <div class="row row-top">
+          <div class="col col-third">
+            <div class="photo-wrap">
+              <img src="/little_ruby.JPG" alt="Jacqueline Williams" class="photo-img" />
+              <div class="photo-overlay" />
             </div>
-          </section>
-          <!-- Right: Experience, Education, Certifications -->
-          <div class="about-main">
-            <section class="section">
+          </div>
+          <div class="col col-twothirds bio-col">
+            <header class="about-header">
+              <h1 class="about-name">Jacqueline Williams</h1>
+              <p class="about-location">
+                <Icon icon="lucide:map-pin" width="13" height="13" />
+                Greater Paris Area, France
+              </p>
+            </header>
+            <p class="bio-block bio-block--primary">
+              I design resilient geospatial systems at the intersection of
+              <strong>cloud, mapping, and infrastructure</strong>. My work blends
+              <strong>spatial intelligence</strong> with scalable architectures
+              that remain legible over time.
+            </p>
+            <p class="bio-block">
+              I'm drawn to the edge where <strong>engineering precision</strong> meets environmental
+              complexity—building systems that serve both machines and the people who depend
+              on them.
+            </p>
+          </div>
+        </div>
+
+        <!-- Row 2: Experience / Education + floating certs -->
+        <div class="row row-bottom">
+          <div class="col col-twothirds">
+            <section class="about-section">
               <h2 class="section-label">Experience</h2>
-              <article class="experience-item">
-                <div class="exp-header">
-                  <span class="exp-role">Software Engineer</span>
-                  <span class="exp-org">Capgemini</span>
-                </div>
-                <p class="exp-meta">Paris Area · Cloud &amp; GIS Systems</p>
-                <p class="exp-description">
-                  Designed and delivered cloud-native geospatial solutions on Azure, integrating
-                  spatial pipelines with enterprise infrastructure at scale.
-                </p>
-              </article>
-              <article class="experience-item">
-                <div class="exp-header">
-                  <span class="exp-role">Web GIS Developer</span>
-                  <span class="exp-org">Thales</span>
-                </div>
-                <p class="exp-meta">Defence &amp; Mapping Systems · 3D / 2D</p>
-                <p class="exp-description">
-                  Built interactive 3D and 2D web mapping interfaces for mission-critical
-                  defence and situational awareness applications.
-                </p>
-              </article>
-              <article class="experience-item">
-                <div class="exp-header">
-                  <span class="exp-role">GIS Developer</span>
-                  <span class="exp-org">IGN — French Mapping Agency</span>
-                </div>
-                <p class="exp-meta">Spatial Analysis · Avalanche Risk Prediction</p>
-                <p class="exp-description">
-                  Contributed to avalanche risk modelling using national geodatasets,
-                  building analysis workflows that translate raw terrain data into actionable risk intelligence.
-                </p>
-              </article>
+              <ul class="about-list">
+                <li>
+                  <strong>Software Engineer</strong> ·
+                  <a href="https://www.capgemini.com/#" target="_blank" rel="noopener noreferrer" class="ilink">Capgemini</a>
+                  — Cloud &amp; GIS Systems
+                </li>
+                <li>
+                  <strong>Web GIS Developer</strong> ·
+                  <a href="https://www.thalesgroup.com/en" target="_blank" rel="noopener noreferrer" class="ilink">Thales</a>
+                  — Defence &amp; Mapping Systems
+                </li>
+                <li>
+                  <strong>GIS Developer</strong> ·
+                  <a href="https://www.ign.fr/institut/identity-card" target="_blank" rel="noopener noreferrer" class="ilink">IGN </a>
+                  — Spatial Analysis ·
+                  <a href="https://www.camptocamp.org/yeti" target="_blank" rel="noopener noreferrer" class="ilink">Avalanche Risk Prediction</a>
+                </li>
+              </ul>
             </section>
-            <section class="section">
+            <section class="about-section">
               <h2 class="section-label">Education</h2>
-              <div class="edu-item">
-                <p class="edu-degree">Master — Information Systems Technologies</p>
-                <p class="edu-school">École nationale des Sciences géographiques</p>
-                <p class="edu-focus">Focus: 3D mapping, GIS, systems architecture</p>
-              </div>
-              <div class="edu-item">
-                <p class="edu-degree">Bachelor — Geography &amp; Environmental Planning</p>
-                <p class="edu-school">Université Grenoble Alpes</p>
-                <p class="edu-focus">Focus: Spatial analysis, environmental modelling</p>
-              </div>
+              <ul class="about-list">
+                <li>
+                  <strong>Master — Information Systems Technologies</strong>,
+                  <a href="https://geodata-paris.fr/en/node/51" target="_blank" rel="noopener noreferrer" class="ilink">Geodata Paris</a>
+                </li>
+                <li>
+                  <strong>Bachelor — Geography &amp; Regional Planning</strong>,
+                  <a href="https://www.univ-grenoble-alpes.fr/english/" target="_blank" rel="noopener noreferrer" class="ilink">Université Grenoble Alpes</a>
+                </li>
+              </ul>
             </section>
-            <section class="section">
-              <h2 class="section-label">Certifications</h2>
-              <div class="badge-grid">
-                <a
-                  v-for="cert in certifications"
-                  :key="cert.title"
-                  :href="cert.url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="badge-card"
-                >
-                  <div class="badge-icon">
-                    <Icon :icon="cert.icon" width="32" height="32" />
-                  </div>
-                  <p class="badge-title">{{ cert.title }}</p>
-                  <p class="badge-issuer">{{ cert.issuer }}</p>
-                </a>
-              </div>
-            </section>
+          </div>
+
+          <div class="col col-third cert-col">
+            <a
+              href="https://learn.microsoft.com/en-us/users/jacquelinewilliams-4789/credentials/b494e1749d479843"
+              target="_blank" rel="noopener noreferrer"
+              class="cert-badge cert-badge-1"
+            >
+              <img src="/badges/microsoft-az900.png" alt="AZ-900" />
+            </a>
+            <a
+              href="https://learn.microsoft.com/en-us/users/jacquelinewilliams-0307/credentials/687941e860f63049"
+              target="_blank" rel="noopener noreferrer"
+              class="cert-badge cert-badge-2"
+            >
+              <img src="/badges/microsoft-az104.png" alt="AZ-104" />
+            </a>
           </div>
         </div>
 
       </div>
     </main>
-
     <AppFooter />
   </div>
 </template>
 
 <script setup>
 import { Icon } from '@iconify/vue'
-
-const certifications = [
-  {
-    title: 'Azure Solutions Architect Expert',
-    issuer: 'Microsoft',
-    icon: 'logos:microsoft-azure',
-    url: 'https://learn.microsoft.com/en-us/certifications/azure-solutions-architect/'
-  },
-  {
-    title: 'Azure Administrator Associate',
-    issuer: 'Microsoft',
-    icon: 'logos:microsoft-azure',
-    url: 'https://learn.microsoft.com/en-us/certifications/azure-administrator/'
-  },
-  {
-    title: 'ArcGIS Desktop Entry',
-    issuer: 'Esri',
-    icon: 'mdi:map-marker-circle',
-    url: 'https://www.esri.com/training/catalog/certification/'
-  },
-  {
-    title: 'Terraform Associate',
-    issuer: 'HashiCorp',
-    icon: 'logos:terraform-icon',
-    url: 'https://developer.hashicorp.com/certifications/infrastructure-automation'
-  },
-  {
-    title: 'Professional Cloud Architect',
-    issuer: 'Google Cloud',
-    icon: 'logos:google-cloud',
-    url: 'https://cloud.google.com/certification/cloud-architect'
-  }
-]
-
 useSeoMeta({
   title: 'About — Jacqueline Williams',
   description: 'GIS Architect & Cloud Engineer. Designing resilient geospatial systems at the intersection of cloud, mapping, and infrastructure.',
@@ -154,291 +106,216 @@ useSeoMeta({
 </script>
 
 <style scoped>
-/* ── Shell ──────────────────────────────────────────────────────── */
+/* ── Shell ───────────────────────────────────────────────────────── */
 .page-shell {
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
 }
-
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding-left: var(--space-lg);
-  padding-right: var(--space-lg);
-}
-
-/* ── Container ──────────────────────────────────────────────────── */
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-4xl) 0;
-}
-
-.about-grid {
   display: flex;
-  flex-direction: row;
-  gap: var(--space-4xl);
+  justify-content: center;
+  padding: var(--space-lg) var(--space-lg) var(--space-2xl);
 }
-
-.about-columns {
-  display: flex;
-  flex-direction: row;
+.about-wrap {
   width: 100%;
-  gap: var(--space-4xl);
-}
-
-.intro-section {
-  flex: 1 1 320px;
-  max-width: 340px;
-  min-width: 260px;
-  padding-top: var(--space-lg);
-}
-
-.about-main {
-  flex: 2 1 0;
-  min-width: 0;
-}
-
-.about-social {
+  max-width: 860px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
+  gap: var(--space-xl);
 }
 
-.about-social a {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: var(--font-size-base);
-  transition: color var(--duration-200) var(--ease-out);
-}
-
-.about-social a:hover {
-  color: var(--color-brand-primary-500);
-}
-
-@media (max-width: 1024px) {
-  .about-grid, .about-columns {
-    flex-direction: column;
-    gap: var(--space-2xl);
-  }
-  .intro-section {
-    max-width: 100%;
-    min-width: 0;
-  }
-}
-
-/* ── Sections ───────────────────────────────────────────────────── */
-.section {
-  padding: var(--space-2xl) 0;
-}
-
-.section-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  margin-bottom: var(--space-2xl);
-}
-
-.divider {
-  height: 1px;
-  background: var(--color-border-primary);
-  opacity: 0.6;
-}
-
-/* ── Intro ──────────────────────────────────────────────────────── */
-.intro-section {
-  padding-top: var(--space-lg);
-}
-
-.name-heading {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--space-xs);
-}
-
-.subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-normal);
-  margin-bottom: var(--space-xs);
-}
-
-.location {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
-  margin-bottom: var(--space-xl);
-}
-
-.pin-icon {
-  flex-shrink: 0;
-}
-
-.narrative {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
-  max-width: 56ch;
-}
-
-/* ── Experience ─────────────────────────────────────────────────── */
-.experience-item {
-  margin-bottom: var(--space-2xl);
-}
-
-.experience-item:last-child {
-  margin-bottom: 0;
-}
-
-.exp-header {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-xs);
-}
-
-.exp-role {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
-
-.exp-org {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-brand-primary-500);
-}
-
-.exp-meta {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-  margin-bottom: var(--space-sm);
-  letter-spacing: 0.02em;
-}
-
-.exp-description {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
-  max-width: 54ch;
-}
-
-/* ── Education ──────────────────────────────────────────────────── */
-.edu-item {
-  margin-bottom: var(--space-xl);
-}
-
-.edu-item:last-child {
-  margin-bottom: 0;
-}
-
-.edu-degree {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-2xs);
-}
-
-.edu-school {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-2xs);
-}
-
-.edu-focus {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-  font-style: italic;
-}
-
-/* ── Certifications ─────────────────────────────────────────────── */
-.badge-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-}
-
-.badge-card {
+/* ── Header (inside bio col) ─────────────────────────────────────── */
+.about-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-sm);
-  padding: var(--space-lg);
-  background: var(--color-surface-primary);
-  border: 1px solid var(--color-border-primary);
-  border-radius: var(--border-radius-xl);
-  text-decoration: none;
-  color: inherit;
-  transition: all var(--duration-200) var(--ease-out);
+  gap: 2px;
 }
-
-.badge-card:hover {
-  background: var(--color-surface-secondary);
-  border-color: var(--color-border-interactive);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+.about-name {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  text-align: center;
 }
-
-.badge-icon {
-  color: var(--color-brand-primary-500);
+.about-location {
   display: flex;
   align-items: center;
+  gap: 0.4em;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin: 0;
 }
 
-.badge-title {
-  font-size: var(--font-size-sm);
+/* ── Rows ────────────────────────────────────────────────────────── */
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-2xl);
+}
+.col-third     { flex: 0 0 32%; padding-top: var(--space-sm); }
+.col-twothirds { flex: 1 1 0; min-width: 0; }
+
+/* ── Photo ───────────────────────────────────────────────────────── */
+.photo-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--border-radius-xl, 0.75rem);
+  overflow: hidden;
+}
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-primary);
+  opacity: 0.18;
+  backdrop-filter: blur(1px);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 300ms;
+}
+
+/* Overlay shifts with color scheme */
+[data-color-scheme="dark"] .photo-overlay {
+  background: var(--color-surface-primary);
+  opacity: 0.28;
+}
+
+/* ── Bio ─────────────────────────────────────────────────────────── */
+.bio-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+.bio-block {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed, 1.7);
+}
+.bio-block + .bio-block {
+  margin-top: var(--space-sm);
+}
+
+/* ── Experience / Education ──────────────────────────────────────── */
+.about-section { margin-bottom: var(--space-lg); }
+.about-section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 var(--space-xs);
+}
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed, 1.55);
 }
 
-.badge-issuer {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
+/* ── Cert column ─────────────────────────────────────────────────── */
+.cert-col {
+  position: relative;
+  align-self: stretch;
+}
+.cert-badge {
+  position: absolute;
+  display: block;
+  width: 64%;
+  max-width: 120px;
+  border-radius: var(--border-radius-lg, 0.5rem);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  opacity: 0.88;
+  transition: opacity 200ms, box-shadow 200ms;
+}
+.cert-badge:hover {
+  opacity: 1;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+.cert-badge img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* Dice-2 diagonals: top-left, bottom-right */
+.cert-badge-1 {
+  top: 10%;
+  left: 8%;
+  animation: float1 18s ease-in-out infinite alternate;
+}
+.cert-badge-2 {
+  bottom: 10%;
+  right: 8%;
+  animation: float2 22s ease-in-out infinite alternate;
+}
+@keyframes float1 {
+  0%   { transform: translateY(0px)   rotate(-1deg); }
+  100% { transform: translateY(12px)  rotate(1deg);  }
+}
+@keyframes float2 {
+  0%   { transform: translateY(0px)   rotate(1deg);  }
+  100% { transform: translateY(-12px) rotate(-1deg); }
 }
 
-/* ── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .name-heading {
-    font-size: var(--font-size-2xl);
-  }
-
-  .badge-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .container {
-    padding: var(--space-2xl) 0;
-  }
+/* ── Inline links ────────────────────────────────────────────────── */
+.ilink {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-brand-primary-500);
+  transition: border-color 150ms;
 }
+.ilink:hover { border-bottom-style: solid; }
 
-@media (max-width: 480px) {
-  .main-content {
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
-  }
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  /* Match desktop top padding exactly — no override conflict */
+  .main-content { padding: var(--space-lg) var(--space-md) var(--space-xl); }
+  .row { flex-direction: column; }
+  .col-third, .col-twothirds { flex: 1 1 100%; width: 100%; }
 
-  .badge-grid {
-    grid-template-columns: 1fr;
+  /* Top row: 2-col grid — photo left spanning 2 rows, name + first bio right, second bio full-width */
+  .row-top {
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    grid-template-rows: auto auto auto;
+    gap: var(--space-md);
+    align-items: start;
   }
+  /* Photo spans rows 1 and 2 so it sits beside name AND first bio */
+  .row-top .col-third { grid-column: 1; grid-row: 1 / 3; flex: unset; width: auto; padding-top: var(--space-sm); }
+  /* Dissolve bio-col so its children participate directly in the grid */
+  .row-top .bio-col { display: contents; }
+  /* Name: row 1, col 2 */
+  .row-top .about-header { grid-column: 2; grid-row: 1; align-self: start; padding-top: 0; }
+  /* First bio: row 2, col 2 — sits beside lower half of photo */
+  .row-top .bio-block--primary { grid-column: 2; grid-row: 2; align-self: start; }
+  /* Second bio: row 3, full width */
+  .row-top .bio-block:not(.bio-block--primary) { grid-column: 1 / -1; grid-row: 3; }
 
-  .name-heading {
-    font-size: var(--font-size-xl);
-  }
+  /* Certs above experience in mobile */
+  .row-bottom { flex-direction: column; }
+  .cert-col { order: -1; min-height: 220px; }
+  .col-twothirds { order: 1; }
+  .cert-badge { position: absolute; }
 }
 </style>
