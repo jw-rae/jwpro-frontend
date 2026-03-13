@@ -8,7 +8,7 @@
         <div class="row row-top">
           <div class="col col-third">
             <div class="photo-wrap">
-              <img src="/little_ruby.JPG" alt="Jacqueline Williams" class="photo-img" />
+              <img src="/20264996_1.png" alt="Jacqueline Williams" class="photo-img" />
               <div class="photo-overlay" />
             </div>
           </div>
@@ -24,8 +24,9 @@
             <p class="bio-block bio-block--primary">
               I build <strong>digital products that work </strong>. Sometimes they involve <strong>maps</strong>, 
               sometimes <strong>cloud infrastructure</strong>, sometimes <strong>web apps</strong> — often all three. 
-              <br/><em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em><br/>
-              I thrive figuring things out quickly, well, and in good humour.
+              There’s often a bit of <strong>SysAdmin</strong>, <strong>DevOps</strong>, and <strong>IaC</strong> sprinkled in too. <br/>
+              I usually thrive figuring things out quickly, with real-world constraints, and all in good humour. <br/><br/>
+            <em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em>
             </p>
             <p class="bio-block">
               Thank you for visiting my corner of the internet. There's more behind the scenes I can't show. 

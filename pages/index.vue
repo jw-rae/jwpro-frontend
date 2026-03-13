@@ -2,15 +2,16 @@
   <div class="app-shell">
     <AppHeader />
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Hero Section -->
-      <section class="hero">
-        <h1 class="hero-title">Jacqueline Williams</h1>
-        <p class="hero-subtitle">
-          <span ref="activityRef" class="typed-text"></span>
-        </p>
-      </section>
+    <div class="main-content-wrapper">
+      <BackgroundWaves />
+      <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+          <h1 class="hero-title">Jacqueline Williams</h1>
+          <p class="hero-subtitle">
+            <span ref="activityRef" class="typed-text"></span>
+          </p>
+        </section>
 
       <!-- Project Carousel -->
       <section class="carousel-section">
@@ -72,7 +73,8 @@
           />
         </div>
       </section>
-    </main>
+      </main>
+    </div>
 
     <AppFooter />
   </div>
@@ -81,6 +83,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Icon } from '@iconify/vue'
+import BackgroundWaves from '~/components/BackgroundWaves.vue'
 
 // ── Carousel state ────────────────────────────────────────────────
 const currentIndex = ref(0)
@@ -198,8 +201,19 @@ useSeoMeta({
   overflow: hidden;
 }
 
+/* ── Main Content Wrapper ──────────────────────────────────────── */
+.main-content-wrapper {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 /* ── Main Content ───────────────────────────────────────────────── */
 .main-content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   overflow: hidden;
   display: flex;
@@ -213,20 +227,20 @@ useSeoMeta({
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  padding: var(--space-2xl) var(--space-lg) var(--space-sm);
   flex-shrink: 0;
 }
 
 .hero-title {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   line-height: var(--line-height-tight);
 }
 
 .hero-subtitle {
-  font-size: var(--font-size-xl);
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
   color: var(--color-text-secondary);
   font-weight: var(--font-weight-normal);
   min-height: 1.5em;
@@ -239,13 +253,13 @@ useSeoMeta({
 /* ── Carousel Section ───────────────────────────────────────────── */
 .carousel-section {
   flex: 1;
-  padding: var(--space-md) var(--space-lg);
-  max-width: 1200px;
+  padding: var(--space-xs) var(--space-lg) var(--space-md);
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  max-height: 60vh;
+  max-height: 75vh;
 }
 
 .carousel-container {
@@ -262,7 +276,7 @@ useSeoMeta({
 .carousel-track {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 640px;
   overflow: visible;
 }
 
@@ -379,7 +393,8 @@ useSeoMeta({
   display: flex;
   justify-content: center;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
   flex-shrink: 0;
 }
 
