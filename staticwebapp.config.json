@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "route": "/apps/planisphere",
+      "rewrite": "/apps/planisphere/index.html"
+    },
+    {
+      "route": "/index.html",
+      "redirect": "/"
+    },
+    {
+      "route": "/api/rss",
+      "headers": {
+        "Cache-Control": "public, max-age=300, stale-while-revalidate=600"
+      }
+    },
+    {
+      "route": "/",
+      "rewrite": "/api/server"
+    }
+  ],
+  "platform": {
+    "apiRuntime": "node:20"
+  },
+  "navigationFallback": {
+    "rewrite": "/api/server"
+  }
+}

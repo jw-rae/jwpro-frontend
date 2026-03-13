@@ -26,7 +26,8 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'azure',
     prerender: {
-      routes: ['/apps/planisphere']
+      // /api/rss is prerendered at build time → served as static CDN JSON (~50ms)
+      routes: ['/apps/planisphere', '/api/rss']
     }
   }
 })

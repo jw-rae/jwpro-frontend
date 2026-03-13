@@ -7,6 +7,11 @@
  */
 
 export default defineCachedEventHandler(async (event) => {
+    // Tell the browser (and any CDN in front) to cache per-category responses.
+    // max-age=300 → serve from cache for 5 min; stale-while-revalidate=600 →
+    // serve stale instantly for up to 10 more min while refreshing in background.
+    setResponseHeader(event, 'Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
+
     const query = getQuery(event)
     const category = typeof query.category === 'string' ? query.category : undefined
 

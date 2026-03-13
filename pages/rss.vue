@@ -228,7 +228,24 @@ const mergeItems = (items) => {
   data.value = sortByDateDesc([...unique.values()])
 }
 
-onMounted(() => {
+onMounted(async () => {
+  // Step 1: Load the prerendered static snapshot from CDN — instant (~50ms).
+  // This is generated at build time by Nitro and served as a static file,
+  // so no Azure Function cold start is involved.
+  try {
+    const snapshot = await $fetch('/api/rss')
+    if (Array.isArray(snapshot) && snapshot.length > 0) {
+      mergeItems(snapshot)
+      error.value = null
+      pending.value = false
+    }
+  }
+  catch {
+    // snapshot unavailable, live fetches below will still populate the list
+  }
+
+  // Step 2: Fire per-category live fetches in parallel to pull in anything
+  // newer than the last deploy (background refresh).
   let remaining = FEED_CATEGORIES.length
 
   for (const cat of FEED_CATEGORIES) {
@@ -239,9 +256,7 @@ onMounted(() => {
           error.value = null
         }
       })
-      .catch(() => {
-        // silent per-category failure; others still render
-      })
+      .catch(() => {})
       .finally(() => {
         remaining--
         if (remaining === 0) {
