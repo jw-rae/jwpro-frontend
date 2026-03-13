@@ -2,14 +2,14 @@ import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 export default defineEventHandler(async (event) => {
-  // Dynamically discover the current hashed asset filenames
-  const assetsDir = join(process.cwd(), 'public/apps/planisphere/assets')
-  const files = await readdir(assetsDir)
+    // Dynamically discover the current hashed asset filenames
+    const assetsDir = join(process.cwd(), 'public/apps/planisphere/assets')
+    const files = await readdir(assetsDir)
 
-  const js  = files.find(f => /^index-.*\.js$/.test(f))  ?? 'index.js'
-  const css = files.find(f => /^index-.*\.css$/.test(f)) ?? 'index.css'
+    const js = files.find(f => /^index-.*\.js$/.test(f)) ?? 'index.js'
+    const css = files.find(f => /^index-.*\.css$/.test(f)) ?? 'index.css'
 
-  const html = `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="en" data-theme="default" data-color-scheme="dark">
 
 <head>
@@ -243,6 +243,6 @@ export default defineEventHandler(async (event) => {
 
 </html>`
 
-  setResponseHeader(event, 'Content-Type', 'text/html; charset=utf-8')
-  return html
+    setResponseHeader(event, 'Content-Type', 'text/html; charset=utf-8')
+    return html
 })
