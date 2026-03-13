@@ -71,7 +71,7 @@
           {{ visibleData.length }} / {{ filteredData.length }} {{ filteredData.length === 1 ? 'entry' : 'entries' }}
           <span v-if="pending" class="streaming-badge">
             <span class="status-dot loading-dot" aria-hidden="true" />
-            streaming…
+            loading…
           </span>
         </p>
 
@@ -201,14 +201,17 @@ const categoryOptions = [
 
 const selectedCategory = ref('all')
 
-// ── Data (EventSource streaming) ────────────────────────────────────────────
+// ── Data (parallel per-category fetch) ───────────────────────────────────────
+//
+// Instead of a single SSE stream (which Azure's reverse proxy buffers),
+// we fire one request per category in parallel. Each resolves independently
+// and merges into the list as soon as it arrives — giving true progressive UX.
+
+const FEED_CATEGORIES = ['Cloud', 'GIS', 'Security', 'Tech Blog', 'Tech News']
 
 const data = ref([])
 const pending = ref(true)
 const error = ref(null)
-
-let rssStream = null
-let streamTimeout = null
 
 const sortByDateDesc = items => [...items].sort((a, b) =>
   b.date > a.date ? 1 : b.date < a.date ? -1 : 0,
@@ -225,100 +228,28 @@ const mergeItems = (items) => {
   data.value = sortByDateDesc([...unique.values()])
 }
 
-const loadSnapshot = async (markDone = true) => {
-  try {
-    const items = await $fetch('/api/rss')
-    mergeItems(items)
-    error.value = null
-  }
-  catch {
-    if (data.value.length === 0) error.value = new Error('Snapshot failed')
-  }
-  finally {
-    if (markDone) pending.value = false
-  }
-}
-
 onMounted(() => {
-  if (typeof EventSource === 'undefined') {
-    void loadSnapshot()
-    return
+  let remaining = FEED_CATEGORIES.length
+
+  for (const cat of FEED_CATEGORIES) {
+    $fetch(`/api/rss?category=${encodeURIComponent(cat)}`)
+      .then(items => {
+        if (Array.isArray(items) && items.length > 0) {
+          mergeItems(items)
+          error.value = null
+        }
+      })
+      .catch(() => {
+        // silent per-category failure; others still render
+      })
+      .finally(() => {
+        remaining--
+        if (remaining === 0) {
+          pending.value = false
+          if (data.value.length === 0) error.value = new Error('No items')
+        }
+      })
   }
-
-  let receivedStreamItems = false
-  rssStream = new EventSource('/api/rss-stream')
-
-  streamTimeout = window.setTimeout(() => {
-    if (!receivedStreamItems) {
-      rssStream?.close()
-      rssStream = null
-
-      if (data.value.length > 0) {
-        pending.value = false
-      }
-      else {
-        void loadSnapshot()
-      }
-    }
-  }, 7000)
-
-  rssStream.addEventListener('items', (e) => {
-    try {
-      const items = JSON.parse(e.data)
-      if (Array.isArray(items) && items.length > 0) {
-        receivedStreamItems = true
-        mergeItems(items)
-        error.value = null
-      }
-    }
-    catch {
-      // Ignore malformed chunks; fallback still covers total failure.
-    }
-  })
-
-  rssStream.addEventListener('done', () => {
-    if (streamTimeout !== null) {
-      clearTimeout(streamTimeout)
-      streamTimeout = null
-    }
-    pending.value = false
-    rssStream?.close()
-    rssStream = null
-
-    if (!receivedStreamItems && data.value.length === 0) {
-      void loadSnapshot()
-    }
-  })
-
-  rssStream.onerror = () => {
-    if (streamTimeout !== null) {
-      clearTimeout(streamTimeout)
-      streamTimeout = null
-    }
-    rssStream?.close()
-    rssStream = null
-
-    if (receivedStreamItems) {
-      pending.value = false
-      return
-    }
-
-    if (data.value.length > 0) {
-      pending.value = false
-      return
-    }
-
-    void loadSnapshot()
-  }
-})
-
-onUnmounted(() => {
-  if (streamTimeout !== null) {
-    clearTimeout(streamTimeout)
-    streamTimeout = null
-  }
-  rssStream?.close()
-  rssStream = null
 })
 
 // ── Source filter & display limit ─────────────────────────────────────────────
