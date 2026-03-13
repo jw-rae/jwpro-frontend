@@ -207,28 +207,107 @@ const data = ref([])
 const pending = ref(true)
 const error = ref(null)
 
+let rssStream = null
+let streamTimeout = null
+
+const sortByDateDesc = items => [...items].sort((a, b) =>
+  b.date > a.date ? 1 : b.date < a.date ? -1 : 0,
+)
+
+const mergeItems = (items) => {
+  if (!Array.isArray(items) || items.length === 0) return
+  const merged = [...data.value, ...items]
+  const unique = new Map()
+  for (const item of merged) {
+    const key = `${item.link}|${item.date}|${item.source}`
+    unique.set(key, item)
+  }
+  data.value = sortByDateDesc([...unique.values()])
+}
+
+const loadSnapshot = async () => {
+  try {
+    const items = await $fetch('/api/rss')
+    mergeItems(items)
+    error.value = null
+  }
+  catch {
+    if (data.value.length === 0) error.value = new Error('Snapshot failed')
+  }
+  finally {
+    pending.value = false
+  }
+}
+
 onMounted(() => {
-  const es = new EventSource('/api/rss-stream')
-
-  es.addEventListener('items', (e) => {
-    const items = JSON.parse(e.data)
-    data.value = [...data.value, ...items].sort((a, b) =>
-      b.date > a.date ? 1 : b.date < a.date ? -1 : 0,
-    )
-  })
-
-  es.addEventListener('done', () => {
-    pending.value = false
-    es.close()
-  })
-
-  es.onerror = () => {
-    if (data.value.length === 0) error.value = new Error('Stream failed')
-    pending.value = false
-    es.close()
+  if (typeof EventSource === 'undefined') {
+    void loadSnapshot()
+    return
   }
 
-  onUnmounted(() => es.close())
+  let receivedStreamItems = false
+  rssStream = new EventSource('/api/rss-stream')
+
+  streamTimeout = window.setTimeout(() => {
+    if (!receivedStreamItems) {
+      rssStream?.close()
+      rssStream = null
+      void loadSnapshot()
+    }
+  }, 7000)
+
+  rssStream.addEventListener('items', (e) => {
+    try {
+      const items = JSON.parse(e.data)
+      if (Array.isArray(items) && items.length > 0) {
+        receivedStreamItems = true
+        mergeItems(items)
+        error.value = null
+      }
+    }
+    catch {
+      // Ignore malformed chunks; fallback still covers total failure.
+    }
+  })
+
+  rssStream.addEventListener('done', () => {
+    if (streamTimeout !== null) {
+      clearTimeout(streamTimeout)
+      streamTimeout = null
+    }
+    pending.value = false
+    rssStream?.close()
+    rssStream = null
+
+    if (!receivedStreamItems) {
+      void loadSnapshot()
+    }
+  })
+
+  rssStream.onerror = () => {
+    if (streamTimeout !== null) {
+      clearTimeout(streamTimeout)
+      streamTimeout = null
+    }
+    rssStream?.close()
+    rssStream = null
+
+    if (receivedStreamItems) {
+      pending.value = false
+      return
+    }
+
+    void loadSnapshot()
+  }
+})
+
+onUnmounted(() => {
+  if (streamTimeout !== null) {
+    clearTimeout(streamTimeout)
+    streamTimeout = null
+  }
+  rssStream?.close()
+  rssStream = null
 })
 
 // ── Source filter & display limit ─────────────────────────────────────────────

@@ -366,4 +366,46 @@ onMounted(() => {
     transform: translateX(-50%);
   }
 }
+
+@media (max-height: 820px) {
+  .header {
+    height: calc(var(--space-2xl) - var(--space-xs));
+  }
+
+  .header-container {
+    padding: 0 var(--space-xl);
+  }
+
+  .brand-primary {
+    font-size: var(--font-size-lg);
+  }
+
+  .header-nav {
+    gap: var(--space-md);
+  }
+
+  .theme-toggle,
+  .theme-selector-toggle {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-height: 700px) {
+  .header {
+    height: calc(var(--space-2xl) - var(--space-sm));
+  }
+
+  .header-container {
+    padding: 0 var(--space-lg);
+  }
+
+  .brand-primary {
+    font-size: var(--font-size-base);
+  }
+
+  .nav-link {
+    font-size: var(--font-size-xs);
+  }
+}
 </style>

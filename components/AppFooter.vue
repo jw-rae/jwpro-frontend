@@ -97,4 +97,36 @@ import { Icon } from '@iconify/vue'
     font-size: var(--font-size-xs);
   }
 }
+
+@media (max-height: 820px) {
+  .footer-container {
+    height: var(--space-2xl);
+    padding: 0 var(--space-xl);
+  }
+
+  .footer-copyright,
+  .footer-email {
+    font-size: var(--font-size-xs);
+  }
+
+  .footer-links {
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-height: 700px) {
+  .footer-container {
+    height: calc(var(--space-2xl) - var(--space-xs));
+    padding: 0 var(--space-lg);
+  }
+
+  .footer-email {
+    display: none;
+  }
+
+  .footer-links svg {
+    width: 16px;
+    height: 16px;
+  }
+}
 </style>
