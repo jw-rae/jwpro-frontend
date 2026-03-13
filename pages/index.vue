@@ -34,15 +34,20 @@
             >
               <div class="card-media">
                 <img :src="project.image" :alt="project.title" />
+                <div v-if="project.showTitle" class="card-media-title" :style="{ color: project.titleColor }">{{ project.label }}</div>
               </div>
               <div class="card-content">
                 <h3 class="card-title">{{ project.title }}</h3>
                 <p class="card-description">{{ project.description }}</p>
                 <div class="card-actions">
-                  <a :href="project.github" class="btn-icon" target="_blank" rel="noopener" aria-label="View on GitHub">
+                  <a v-if="project.github" :href="project.github" class="btn-icon" target="_blank" rel="noopener" aria-label="View on GitHub">
                     <Icon icon="mdi:github" width="20" height="20" />
                   </a>
-                  <a :href="project.demo" class="btn btn-primary" target="_blank" rel="noopener">
+                  <NuxtLink v-if="project.demo && project.demo.startsWith('/')" :to="project.demo" class="btn btn-primary">
+                    Live Demo
+                    <Icon icon="lucide:arrow-right" width="16" height="16" />
+                  </NuxtLink>
+                  <a v-else-if="project.demo" :href="project.demo" class="btn btn-primary" target="_blank" rel="noopener">
                     Live Demo
                     <Icon icon="lucide:external-link" width="16" height="16" />
                   </a>
@@ -91,28 +96,35 @@ const currentIndex = ref(0)
 const projects = ref([
   {
     id: 1,
-    title: 'Spatial Data Pipeline',
-    description: 'Automated ETL pipeline processing geospatial data with Azure Functions, PostGIS, and real-time web mapping visualization.',
-    image: 'https://placehold.co/600x400/3b82f6/ffffff?text=Spatial+Pipeline',
-    github: 'https://github.com',
-    demo: 'https://example.com'
+    title: 'Planisphere',
+    description: 'Interactive digital planisphere built with D3.js — rotate the sky wheel to explore constellations visible from any latitude on any night of the year.',
+    image: '/thumbnails/planisphere.png',
+    showTitle: true,
+    label: 'Planisphere',
+    titleColor: '#7dd3fc',
+    github: 'https://github.com/jw-rae/planisphere',
+    demo: '/projects/planisphere'
   },
   {
     id: 2,
-    title: 'Cloud GIS Platform',
-    description: 'Scalable web GIS application built with modern frameworks, handling millions of spatial features efficiently.',
-    image: 'https://placehold.co/600x400/8b5cf6/ffffff?text=GIS+Platform',
-    github: 'https://github.com',
-    demo: 'https://example.com'
+    title: 'Digital Terrain Model Viewer',
+    description: 'Browser-based viewer for high-resolution USGS GeoTIFF Digital Terrain Models. Visualise and analyse elevation data with hillshading, colour ramps, and contour overlays — no backend required.',
+    image: '/thumbnails/dtm-viewer.png',
+    showTitle: true,
+    label: 'DTM Viewer',
+    titleColor: '#4ade80',
+    github: 'https://github.com/jw-rae/digital-terrain-model-viewer',
+    demo: '/projects/digital-terrain-model-viewer'
   },
   {
     id: 3,
-    title: 'Network Monitoring Dashboard',
-    description: 'Real-time network monitoring with automated alerting and performance analytics for enterprise infrastructure.',
-    image: 'https://placehold.co/600x400/ec4899/ffffff?text=Network+Monitor',
-    github: 'https://github.com',
-    demo: 'https://example.com'
-  }
+    title: 'Coming Soon',
+    description: 'More projects are on the way.',
+    image: 'https://placehold.co/640x360/1e293b/475569?text=Coming+Soon',
+    showTitle: false,
+    github: '',
+    demo: ''
+  },
 ])
 
 const nextProject = () => {
@@ -227,12 +239,12 @@ useSeoMeta({
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-2xl) var(--space-lg) var(--space-sm);
+  padding: var(--space-lg) var(--space-lg) var(--space-xs);
   flex-shrink: 0;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 4.5rem);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin-bottom: var(--space-sm);
@@ -240,7 +252,7 @@ useSeoMeta({
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  font-size: clamp(1rem, 2vw, 1.8rem);
   color: var(--color-text-secondary);
   font-weight: var(--font-weight-normal);
   min-height: 1.5em;
@@ -253,13 +265,12 @@ useSeoMeta({
 /* ── Carousel Section ───────────────────────────────────────────── */
 .carousel-section {
   flex: 1;
-  padding: var(--space-xs) var(--space-lg) var(--space-md);
+  padding: var(--space-xs) var(--space-lg) var(--space-lg);
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  max-height: 75vh;
+  overflow: visible;
 }
 
 .carousel-container {
@@ -276,7 +287,8 @@ useSeoMeta({
 .carousel-track {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  /* Never wider than what fits vertically: image is 16:9, card content ~130px, hero+chrome ~250px */
+  max-width: min(480px, calc((100dvh - 380px) * 16 / 9));
   overflow: visible;
 }
 
@@ -304,12 +316,27 @@ useSeoMeta({
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--color-surface-secondary);
+  position: relative;
 }
 
 .card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.card-media-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  text-shadow: none;
+  letter-spacing: normal;
+  pointer-events: none;
 }
 
 .card-content {
@@ -393,9 +420,10 @@ useSeoMeta({
   display: flex;
   justify-content: center;
   gap: var(--space-sm);
-  margin-top: var(--space-xs);
+  margin-top: var(--space-sm);
   margin-bottom: var(--space-md);
   flex-shrink: 0;
+  padding-bottom: var(--space-xs);
 }
 
 .carousel-dot {
@@ -420,25 +448,39 @@ useSeoMeta({
 }
 
 /* ── Responsive ─────────────────────────────────────────────────── */
+
+/* Large screens: let the card expand more */
+@media (min-width: 1400px) {
+  .carousel-track { max-width: min(720px, calc((100dvh - 380px) * 16 / 9)); }
+  .hero { padding: var(--space-xl) var(--space-lg) var(--space-sm); }
+}
+
+/* Tablet landscape */
 @media (max-width: 1024px) {
   .carousel-container { gap: var(--space-md); }
   .carousel-arrow { width: 36px; height: 36px; }
 }
 
+/* Tablet portrait / large phone */
 @media (max-width: 768px) {
-  .hero { padding: var(--space-2xl) var(--space-sm) var(--space-lg); }
-  .hero-title { font-size: var(--font-size-xl); }
-  .hero-subtitle { font-size: var(--font-size-sm); }
+  .hero { padding: var(--space-md) var(--space-sm) var(--space-xs); }
   .carousel-arrow { width: 32px; height: 32px; }
   .carousel-arrow svg { width: 18px; height: 18px; }
-  .carousel-section { padding: var(--space-md) var(--space-sm); max-height: 60vh; }
+  .carousel-section { padding: var(--space-sm) var(--space-sm) var(--space-md); }
   .carousel-container { gap: var(--space-sm); }
   .carousel-track { max-width: 100%; }
   .card-content { padding: var(--space-sm); }
   .card-title { font-size: var(--font-size-base); margin-bottom: var(--space-xs); }
-  .card-description { font-size: var(--font-size-xs); margin-bottom: var(--space-sm); -webkit-line-clamp: 2; line-clamp: 2; }
-  .carousel-dots { margin-top: var(--space-sm); }
+  .card-description { font-size: var(--font-size-xs); margin-bottom: var(--space-sm); }
   .card-actions { gap: var(--space-sm); }
   .btn-icon { width: 32px; height: 32px; }
+  .carousel-dots { margin-top: var(--space-xs); }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .hero { padding: var(--space-sm) var(--space-sm) var(--space-xs); }
+  .carousel-container { gap: var(--space-xs); }
+  .carousel-arrow { width: 28px; height: 28px; }
 }
 </style>

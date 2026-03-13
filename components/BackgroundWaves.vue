@@ -2,7 +2,7 @@
   <div class="bg-waves-wrapper" aria-hidden="true">
 
     <!-- ── Waves: anchored to the BOTTOM ──────────────────────── -->
-    <svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" width="1920" height="340" fill="none">
+    <svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 340" preserveAspectRatio="none" fill="none">
       <defs>
         <linearGradient id="waveGrad1" x1="0" y1="0" x2="1920" y2="340" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="var(--color-brand-primary-600)" stop-opacity="0.22" />
@@ -104,7 +104,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 1920px;
+  width: 100%;
   height: 340px;
 }
 </style>

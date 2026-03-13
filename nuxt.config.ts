@@ -24,6 +24,9 @@ export default defineNuxtConfig({
 
   // Build configuration for static export
   nitro: {
-    preset: 'static'
+    preset: 'static',
+    prerender: {
+      routes: ['/apps/planisphere']
+    }
   }
 })
