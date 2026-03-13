@@ -52,6 +52,7 @@ jobs:
           app_location: ".output/public" # Prebuilt Nuxt public output
           api_location: ".output/server" # Prebuilt Nuxt/Nitro API output
           output_location: "" # Not used when app_location points to built output
+          config_file_location: ".output/public" # Includes staticwebapp.config.json
           skip_app_build: true
           skip_api_build: true
           github_id_token: ${{ steps.idtoken.outputs.result }}
