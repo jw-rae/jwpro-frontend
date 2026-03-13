@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  // Static site generation for Azure Static Web Apps
+  // Keep SSR enabled so server routes (/api/*) run in Azure.
   ssr: true,
 
   // App Configuration
@@ -22,9 +22,9 @@ export default defineNuxtConfig({
     }
   },
 
-  // Build configuration for static export
+  // Build configuration for Azure Static Web Apps (Nuxt/Nitro server runtime)
   nitro: {
-    preset: 'static',
+    preset: 'azure',
     prerender: {
       routes: ['/apps/planisphere']
     }
