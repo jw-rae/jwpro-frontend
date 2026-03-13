@@ -240,9 +240,6 @@ const loadSnapshot = async (markDone = true) => {
 }
 
 onMounted(() => {
-  // Snapshot-first keeps the page useful even when SSE is blocked or delayed.
-  void loadSnapshot(false)
-
   if (typeof EventSource === 'undefined') {
     void loadSnapshot()
     return
