@@ -225,7 +225,7 @@ const mergeItems = (items) => {
   data.value = sortByDateDesc([...unique.values()])
 }
 
-const loadSnapshot = async () => {
+const loadSnapshot = async (markDone = true) => {
   try {
     const items = await $fetch('/api/rss')
     mergeItems(items)
@@ -235,11 +235,14 @@ const loadSnapshot = async () => {
     if (data.value.length === 0) error.value = new Error('Snapshot failed')
   }
   finally {
-    pending.value = false
+    if (markDone) pending.value = false
   }
 }
 
 onMounted(() => {
+  // Snapshot-first keeps the page useful even when SSE is blocked or delayed.
+  void loadSnapshot(false)
+
   if (typeof EventSource === 'undefined') {
     void loadSnapshot()
     return
@@ -252,7 +255,13 @@ onMounted(() => {
     if (!receivedStreamItems) {
       rssStream?.close()
       rssStream = null
-      void loadSnapshot()
+
+      if (data.value.length > 0) {
+        pending.value = false
+      }
+      else {
+        void loadSnapshot()
+      }
     }
   }, 7000)
 
@@ -279,7 +288,7 @@ onMounted(() => {
     rssStream?.close()
     rssStream = null
 
-    if (!receivedStreamItems) {
+    if (!receivedStreamItems && data.value.length === 0) {
       void loadSnapshot()
     }
   })
@@ -293,6 +302,11 @@ onMounted(() => {
     rssStream = null
 
     if (receivedStreamItems) {
+      pending.value = false
+      return
+    }
+
+    if (data.value.length > 0) {
       pending.value = false
       return
     }

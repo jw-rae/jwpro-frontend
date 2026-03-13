@@ -38,7 +38,6 @@
               </div>
               <div class="card-content">
                 <h3 class="card-title">{{ project.title }}</h3>
-                <p class="card-description">{{ project.description }}</p>
                 <div class="card-actions">
                   <a v-if="project.github" :href="project.github" class="btn-icon" target="_blank" rel="noopener" aria-label="View on GitHub">
                     <Icon icon="mdi:github" width="20" height="20" />
@@ -52,6 +51,7 @@
                     <Icon icon="lucide:external-link" width="16" height="16" />
                   </a>
                 </div>
+                <p class="card-description">{{ project.description }}</p>
               </div>
             </div>
           </div>
@@ -210,6 +210,7 @@ useSeoMeta({
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -239,7 +240,7 @@ useSeoMeta({
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-lg) var(--space-lg) var(--space-xs);
+  padding: var(--space-md) var(--space-lg) var(--space-xs);
   flex-shrink: 0;
 }
 
@@ -247,7 +248,7 @@ useSeoMeta({
   font-size: clamp(2.2rem, 4vw, 4.5rem);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
   line-height: var(--line-height-tight);
 }
 
@@ -265,7 +266,7 @@ useSeoMeta({
 /* ── Carousel Section ───────────────────────────────────────────── */
 .carousel-section {
   flex: 1;
-  padding: var(--space-xs) var(--space-lg) var(--space-lg);
+  padding: var(--space-xs) var(--space-lg) var(--space-md);
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -288,7 +289,7 @@ useSeoMeta({
   position: relative;
   width: 100%;
   /* Never wider than what fits vertically: image is 16:9, card content ~130px, hero+chrome ~250px */
-  max-width: min(480px, calc((100dvh - 380px) * 16 / 9));
+  max-width: min(420px, calc((100dvh - 390px) * 16 / 9));
   overflow: visible;
 }
 
@@ -340,21 +341,25 @@ useSeoMeta({
 }
 
 .card-content {
-  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
 }
 
 .card-title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0;
 }
 
 .card-description {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
+  margin-top: var(--space-xs);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -365,15 +370,20 @@ useSeoMeta({
 .card-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.card-actions .btn {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
 }
 
 .btn-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--border-radius-full);
   background: transparent;
   color: var(--color-text-secondary);
@@ -392,8 +402,8 @@ useSeoMeta({
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--border-radius-full);
   background: var(--color-surface-primary);
   border: 1px solid var(--color-border-primary);
@@ -420,8 +430,8 @@ useSeoMeta({
   display: flex;
   justify-content: center;
   gap: var(--space-sm);
-  margin-top: var(--space-sm);
-  margin-bottom: var(--space-md);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-sm);
   flex-shrink: 0;
   padding-bottom: var(--space-xs);
 }
@@ -449,9 +459,100 @@ useSeoMeta({
 
 /* ── Responsive ─────────────────────────────────────────────────── */
 
+/* Compact laptops and short desktop displays */
+@media (max-height: 860px) {
+  .hero {
+    padding: var(--space-sm) var(--space-lg) var(--space-xs);
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 3.2vw, 3.4rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 1.6vw, 1.3rem);
+    min-height: 1.3em;
+  }
+
+  .carousel-section {
+    padding: 0 var(--space-lg) var(--space-xs);
+  }
+
+  .carousel-track {
+    max-width: min(390px, calc((100dvh - 320px) * 16 / 9));
+  }
+
+  .card-description {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+}
+
+/* Extremely short viewports fallback to a scrollable main panel */
+@media (max-height: 720px) {
+  .main-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    padding: var(--space-xs) var(--space-md) 0;
+  }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+    margin-bottom: 0;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+    min-height: 1.2em;
+  }
+
+  .carousel-section {
+    padding: 0 var(--space-md) var(--space-xs);
+  }
+
+  .carousel-container {
+    gap: var(--space-sm);
+  }
+
+  .carousel-track {
+    max-width: min(340px, calc((100dvh - 250px) * 16 / 9));
+  }
+
+  .card-content {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .card-title {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-xs);
+  }
+
+  .card-description {
+    margin-bottom: var(--space-xs);
+  }
+
+  .card-actions {
+    gap: var(--space-sm);
+  }
+
+  .card-actions .btn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .carousel-dots {
+    gap: var(--space-xs);
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
 /* Large screens: let the card expand more */
 @media (min-width: 1400px) {
-  .carousel-track { max-width: min(720px, calc((100dvh - 380px) * 16 / 9)); }
+  .carousel-track { max-width: min(620px, calc((100dvh - 380px) * 16 / 9)); }
   .hero { padding: var(--space-xl) var(--space-lg) var(--space-sm); }
 }
 
