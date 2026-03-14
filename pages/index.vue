@@ -155,6 +155,29 @@ const onTouchEnd = (e) => {
   else prevProject()
 }
 
+// ── RSS warmup (for faster News tab) ─────────────────────────────
+const { fetchSnapshot, refreshByCategory } = useRssFeedCache()
+
+const warmRssFeeds = () => {
+  const run = async () => {
+    await Promise.allSettled([
+      fetchSnapshot(),
+      refreshByCategory({ force: true }),
+    ])
+  }
+
+  if (typeof window.requestIdleCallback === 'function') {
+    window.requestIdleCallback(() => {
+      void run()
+    }, { timeout: 1200 })
+    return
+  }
+
+  window.setTimeout(() => {
+    void run()
+  }, 250)
+}
+
 // ── Typing animation ──────────────────────────────────────────────
 const activityRef = ref(null)
 
@@ -200,6 +223,7 @@ function typeActivity () {
 // ── Lifecycle ─────────────────────────────────────────────────────
 onMounted(() => {
   typeActivity()
+  warmRssFeeds()
 
   const handleKeydown = (e) => {
     if (e.key === 'ArrowLeft') prevProject()

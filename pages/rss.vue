@@ -201,69 +201,34 @@ const categoryOptions = [
 
 const selectedCategory = ref('all')
 
-// ── Data (parallel per-category fetch) ───────────────────────────────────────
-//
-// Instead of a single SSE stream (which Azure's reverse proxy buffers),
-// we fire one request per category in parallel. Each resolves independently
-// and merges into the list as soon as it arrives — giving true progressive UX.
+// ── Data (shared cache + progressive category refresh) ──────────────────────
 
-const FEED_CATEGORIES = ['Cloud', 'GIS', 'Security', 'Tech Blog', 'Tech News']
-
-const data = ref([])
+const { items: data, fetchSnapshot, refreshByCategory } = useRssFeedCache()
 const pending = ref(true)
 const error = ref(null)
 
-const sortByDateDesc = items => [...items].sort((a, b) =>
-  b.date > a.date ? 1 : b.date < a.date ? -1 : 0,
-)
-
-const mergeItems = (items) => {
-  if (!Array.isArray(items) || items.length === 0) return
-  const merged = [...data.value, ...items]
-  const unique = new Map()
-  for (const item of merged) {
-    const key = `${item.link}|${item.date}|${item.source}`
-    unique.set(key, item)
-  }
-  data.value = sortByDateDesc([...unique.values()])
-}
-
 onMounted(async () => {
-  // Step 1: Load the prerendered static snapshot from CDN — instant (~50ms).
-  // This is generated at build time by Nitro and served as a static file,
-  // so no Azure Function cold start is involved.
-  try {
-    const snapshot = await $fetch('/api/rss')
-    if (Array.isArray(snapshot) && snapshot.length > 0) {
-      mergeItems(snapshot)
+  // Keep the loading badge while updates are fetched, but render cached items
+  // immediately if the homepage already warmed the feed cache.
+  if (data.value.length > 0) {
+    error.value = null
+  }
+
+  pending.value = true
+
+  const snapshotTask = fetchSnapshot()
+  const refreshTask = refreshByCategory({
+    force: true,
+    onChunk: () => {
       error.value = null
-      pending.value = false
-    }
-  }
-  catch {
-    // snapshot unavailable, live fetches below will still populate the list
-  }
+    },
+  })
 
-  // Step 2: Fire per-category live fetches in parallel to pull in anything
-  // newer than the last deploy (background refresh).
-  let remaining = FEED_CATEGORIES.length
+  await Promise.allSettled([snapshotTask, refreshTask])
 
-  for (const cat of FEED_CATEGORIES) {
-    $fetch(`/api/rss?category=${encodeURIComponent(cat)}`)
-      .then(items => {
-        if (Array.isArray(items) && items.length > 0) {
-          mergeItems(items)
-          error.value = null
-        }
-      })
-      .catch(() => {})
-      .finally(() => {
-        remaining--
-        if (remaining === 0) {
-          pending.value = false
-          if (data.value.length === 0) error.value = new Error('No items')
-        }
-      })
+  pending.value = false
+  if (data.value.length === 0) {
+    error.value = new Error('No items')
   }
 })
 
