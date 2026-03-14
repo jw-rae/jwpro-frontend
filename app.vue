@@ -105,6 +105,31 @@ useHead({
   padding: 0 var(--space-lg);
 }
 
+/* ── Global cursor baseline (opt-in only) ───────────────────────────── */
+/* Disable text-caret look site-wide; re-enable per element/class.       */
+*, *::before, *::after {
+  cursor: default;
+  caret-color: transparent;
+}
+
+/* Explicit opt-in utilities */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-text {
+  cursor: text;
+  caret-color: auto;
+}
+
+/* Forms/contenteditable must opt back into text caret explicitly. */
+input.cursor-text,
+textarea.cursor-text,
+[contenteditable="true"].cursor-text {
+  cursor: text;
+  caret-color: auto;
+}
+
 /* ── Scrollbar theming (respects all color/dark themes) ─────────────── */
 * {
   scrollbar-width: thin;
