@@ -5,6 +5,10 @@
       "rewrite": "/apps/planisphere/index.html"
     },
     {
+      "route": "/apps/digital-terrain-model-viewer",
+      "rewrite": "/apps/digital-terrain-model-viewer/index.html"
+    },
+    {
       "route": "/index.html",
       "redirect": "/"
     },
@@ -23,6 +27,10 @@
     "apiRuntime": "node:20"
   },
   "navigationFallback": {
-    "rewrite": "/api/server"
+    "rewrite": "/api/server",
+    "exclude": [
+      "/apps/digital-terrain-model-viewer/data/*",
+      "/apps/digital-terrain-model-viewer/assets/*"
+    ]
   }
 }
