@@ -25,7 +25,7 @@
             <Icon icon="lucide:chevron-left" width="24" height="24" />
           </button>
 
-          <div class="carousel-track">
+          <div class="carousel-track" @touchstart.passive="onTouchStart" @touchend="onTouchEnd">
             <div
               v-for="(project, index) in projects"
               :key="project.id"
@@ -135,6 +135,24 @@ const prevProject = () => {
 }
 const goToProject = (index) => {
   currentIndex.value = index
+}
+
+// ── Swipe support ─────────────────────────────────────────────────
+const touchStartX = ref(0)
+const touchStartY = ref(0)
+const SWIPE_THRESHOLD = 50
+
+const onTouchStart = (e) => {
+  touchStartX.value = e.touches[0].clientX
+  touchStartY.value = e.touches[0].clientY
+}
+
+const onTouchEnd = (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX.value
+  const dy = e.changedTouches[0].clientY - touchStartY.value
+  if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return
+  if (dx < 0) nextProject()
+  else prevProject()
 }
 
 // ── Typing animation ──────────────────────────────────────────────
@@ -288,6 +306,7 @@ useSeoMeta({
 .carousel-track {
   position: relative;
   width: 100%;
+  touch-action: pan-y;
   /* Never wider than what fits vertically: image is 16:9, card content ~130px, hero+chrome ~250px */
   max-width: min(420px, calc((100dvh - 390px) * 16 / 9));
   overflow: visible;
