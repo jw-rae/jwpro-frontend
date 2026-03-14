@@ -21,16 +21,14 @@
               </p>
             </header>
             <div style="height: var(--space-sm);"></div>
-            <p class="bio-block bio-block--primary">
-              I build <strong>digital products that work </strong>. Sometimes they involve <strong>maps</strong>, 
-              sometimes <strong>cloud infrastructure</strong>, sometimes <strong>web apps</strong> — often all three. 
-              There’s often a bit of <strong>SysAdmin</strong>, <strong>DevOps</strong>, and <strong>IaC</strong> sprinkled in too. <br/>
-              I usually thrive figuring things out quickly, with real-world constraints, and all in good humour. <br/><br/>
-            <em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em>
-            </p>
             <p class="bio-block">
-              Thank you for visiting my corner of the internet. There's more behind the scenes I can't show. 
-              Please reach out if you’d like to discuss anything you’re working on — fellow human behind a screen, take care. 🌍
+              I build <strong>digital products that work</strong>. Sometimes they involve <strong>maps</strong>,
+              sometimes <strong>cloud infrastructure</strong>, sometimes <strong>web apps</strong> — often all three.
+              There's often a bit of <strong>SysAdmin</strong>, <strong>DevOps</strong>, and <strong>IaC</strong> sprinkled in too.
+              I usually thrive figuring things out quickly, with real-world constraints, and all in good humour.
+              <br /><em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em><br /><br />
+              Thank you for visiting my corner of the internet. There's more behind the scenes I can't show.
+              Please reach out if you'd like to discuss anything you're working on — fellow human behind a screen, take care. 🌍
             </p>
           </div>
         </div>
@@ -207,10 +205,6 @@ useSeoMeta({
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed, 1.7);
 }
-.bio-block + .bio-block {
-  margin-top: var(--space-sm);
-}
-
 /* ── Experience / Education ──────────────────────────────────────── */
 .about-section { margin-bottom: var(--space-lg); }
 .about-section:last-child { margin-bottom: 0; }
@@ -290,33 +284,51 @@ useSeoMeta({
 
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 680px) {
-  /* Match desktop top padding exactly — no override conflict */
   .main-content { padding: var(--space-lg) var(--space-md) var(--space-xl); }
-  .row { flex-direction: column; }
+
+  /* ── Top row: newspaper float ──────────────────────────────────── */
+  /* Collapse flex row; photo floats left and ALL bio text wraps      */
+  /* naturally around and below it — zero forced whitespace.          */
+  .row-top {
+    display: block;
+    margin-bottom: var(--space-xl);
+  }
+  .row-top::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .row-top .col-third {
+    float: left;
+    width: 38%;
+    padding-top: 0;
+    margin-right: var(--space-md);
+    margin-bottom: var(--space-xs);
+    flex: unset;
+  }
+
+  .row-top .bio-col {
+    display: block;
+    justify-content: unset;
+    gap: unset;
+  }
+
+  .row-top .bio-block {
+    font-size: var(--font-size-sm);
+    margin-top: 0;
+  }
+
+  /* ── Bottom row: stack columns ─────────────────────────────────── */
+  .row-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
   .col-third, .col-twothirds { flex: 1 1 100%; width: 100%; }
 
-  /* Top row: 2-col grid — photo left spanning 2 rows, name + first bio right, second bio full-width */
-  .row-top {
-    display: grid;
-    grid-template-columns: 42% 1fr;
-    grid-template-rows: auto auto auto;
-    gap: var(--space-md);
-    align-items: start;
-  }
-  /* Photo spans rows 1 and 2 so it sits beside name AND first bio */
-  .row-top .col-third { grid-column: 1; grid-row: 1 / 3; flex: unset; width: auto; padding-top: var(--space-sm); }
-  /* Dissolve bio-col so its children participate directly in the grid */
-  .row-top .bio-col { display: contents; }
-  /* Name: row 1, col 2 */
-  .row-top .about-header { grid-column: 2; grid-row: 1; align-self: start; padding-top: 0; }
-  /* First bio: row 2, col 2 — sits beside lower half of photo */
-  .row-top .bio-block--primary { grid-column: 2; grid-row: 2; align-self: start; }
-  /* Second bio: row 3, full width */
-  .row-top .bio-block:not(.bio-block--primary) { grid-column: 1 / -1; grid-row: 3; }
-
-  /* Certs above experience in mobile */
-  .row-bottom { flex-direction: column; }
-  .cert-col { order: -1; min-height: 220px; }
+  /* Certs above experience */
+  .cert-col { order: -1; min-height: 190px; position: relative; }
   .col-twothirds { order: 1; }
   .cert-badge { position: absolute; }
 }
