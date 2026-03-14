@@ -34,7 +34,7 @@
             >
               <div class="card-media">
                 <img :src="project.image" :alt="project.title" />
-                <div v-if="project.showTitle" class="card-media-title" :style="{ color: project.titleColor }">{{ project.label }}</div>
+                <div v-if="project.showTitle" class="card-media-title">{{ project.label }}</div>
               </div>
               <div class="card-content">
                 <h3 class="card-title">{{ project.title }}</h3>
@@ -295,14 +295,101 @@ useSeoMeta({
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 2vw, 1.8rem);
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-normal);
-  min-height: 1.5em;
+  --subtitle-accent: color-mix(in srgb, var(--color-brand-primary-500) 38%, var(--color-text-primary) 62%);
+  font-size: clamp(1.15rem, 2.4vw, 2.15rem);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.018em;
+  line-height: 1.35;
+  height: calc(1em * 1.35);
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-subtitle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 24ch);
+  height: 0.28em;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--subtitle-accent) 12%, transparent) 22%,
+    color-mix(in srgb, var(--subtitle-accent) 45%, white 55%) 50%,
+    color-mix(in srgb, var(--subtitle-accent) 12%, transparent) 78%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  filter: blur(9px);
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 0;
+  animation: subtitleBacklightSweep 5.2s ease-in-out infinite;
 }
 
 .typed-text {
   white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.55),
+    0 0 8px color-mix(in srgb, var(--subtitle-accent) 24%, transparent);
+  animation: subtitleTone 3s ease-in-out infinite;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .typed-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-text-primary) 0%,
+      color-mix(in srgb, var(--subtitle-accent) 42%, var(--color-text-primary) 58%) 44%,
+      var(--color-text-primary) 74%,
+      color-mix(in srgb, var(--subtitle-accent) 28%, var(--color-text-primary) 72%) 100%
+    );
+    background-size: 240% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 0.25px color-mix(in srgb, var(--subtitle-accent) 28%, transparent);
+    color: transparent;
+    animation: subtitleTone 3s ease-in-out infinite, subtitleShimmer 8.5s linear infinite;
+  }
+}
+
+@keyframes subtitleTone {
+  0%, 100% {
+    opacity: 0.96;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.06);
+  }
+}
+
+@keyframes subtitleShimmer {
+  from { background-position: 0% 50%; }
+  to { background-position: 240% 50%; }
+}
+
+@keyframes subtitleBacklightSweep {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.28;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.5;
+  }
 }
 
 /* ── Carousel Section ───────────────────────────────────────────── */
@@ -377,10 +464,42 @@ useSeoMeta({
   justify-content: center;
   font-family: sans-serif;
   font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 400;
-  text-shadow: none;
-  letter-spacing: normal;
+  font-weight: 560;
+  color: color-mix(in srgb, var(--color-text-primary) 76%, #c8d0da 24%);
+  text-shadow:
+    0 1px 0 rgba(20, 24, 30, 0.32),
+    0 0 10px rgba(180, 193, 208, 0.18);
+  letter-spacing: 0.02em;
   pointer-events: none;
+  animation: projectTitlePulse 4.2s ease-in-out infinite;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .card-media-title {
+    background-image: linear-gradient(
+      100deg,
+      #87919e 0%,
+      #dfe5ec 28%,
+      #a3adba 55%,
+      #f2f5f8 77%,
+      #87919e 100%
+    );
+    background-size: 260% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: projectTitlePulse 4.2s ease-in-out infinite, projectTitleSheen 8.5s linear infinite;
+  }
+}
+
+@keyframes projectTitlePulse {
+  0%, 100% { opacity: 0.9; filter: saturate(78%); }
+  50% { opacity: 1; filter: saturate(92%); }
+}
+
+@keyframes projectTitleSheen {
+  from { background-position: 0% 50%; }
+  to { background-position: 260% 50%; }
 }
 
 .card-content {
@@ -513,8 +632,8 @@ useSeoMeta({
   }
 
   .hero-subtitle {
-    font-size: clamp(0.95rem, 1.6vw, 1.3rem);
-    min-height: 1.3em;
+    font-size: clamp(1.02rem, 1.85vw, 1.5rem);
+    height: calc(1em * 1.35);
   }
 
   .carousel-section {
@@ -548,8 +667,8 @@ useSeoMeta({
   }
 
   .hero-subtitle {
-    font-size: clamp(0.85rem, 1.5vw, 1.05rem);
-    min-height: 1.2em;
+    font-size: clamp(0.92rem, 1.65vw, 1.2rem);
+    height: calc(1em * 1.35);
   }
 
   .carousel-section {
