@@ -1,4 +1,4 @@
-# Professional Website - Jack George
+# Professional Website - Jacqueline Williams
 
 > GIS Engineer & Azure Cloud Architect Portfolio
 

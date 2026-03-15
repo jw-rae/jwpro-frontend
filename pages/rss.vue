@@ -5,6 +5,8 @@
     <main class="main-content">
       <div class="container">
 
+        <h1 class="page-title">{{ ui.title }}</h1>
+
         <!-- Filters -->
         <div v-if="data.length > 0" class="filters">
           <!-- Category pills -->
@@ -331,6 +333,13 @@ useSeoMeta({
 }
 
 /* ── Page header ─────────────────────────────────────────────────────────── */
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm);
+  line-height: var(--line-height-tight);
+}
 
 /* ── Status states ───────────────────────────────────────────────────────── */
 .status-block {
@@ -378,7 +387,7 @@ useSeoMeta({
   align-items: center;
   gap: var(--space-sm);
   flex-wrap: wrap;
-  margin-top: var(--space-2xl);
+  margin-top: 0;
   margin-bottom: var(--space-lg);
 }
 
@@ -701,11 +710,11 @@ useSeoMeta({
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .page-title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
   }
 
   .container {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-lg) 0 var(--space-2xl);
   }
 
   .item-top {
@@ -719,6 +728,10 @@ useSeoMeta({
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: var(--space-md) 0 var(--space-xl);
+  }
+
   .main-content {
     padding-left: var(--space-md);
     padding-right: var(--space-md);

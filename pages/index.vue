@@ -182,19 +182,24 @@ const warmRssFeeds = () => {
 const activityRef = ref(null)
 
 const activities = [
-  'Cloud Engineer',
-  'Solutions Architect',
+  'Cloud Engineering',
+  'Solutions Architecture',
   'DevOps',
-  'Full-stack Developer',
-  'Consultant',
-  'GIS Engineer',
-  'SysAdmin'
+  'Full-stack Development',
+  'Application Consulting',
+  'GIS Engineering',
+  'System Administration',
 ]
 
 let actIndex = 0
 let charIndex = 0
 let typing = true
 let typingTimer = null
+
+const TYPE_SPEED_MS = 80
+const DELETE_SPEED_MS = 40
+const WORD_COMPLETE_PAUSE_MS = 1400
+const NEXT_ACTIVITY_DELAY_MS = 400
 
 function typeActivity () {
   const el = activityRef.value
@@ -203,19 +208,19 @@ function typeActivity () {
   if (typing) {
     if (charIndex < activities[actIndex].length) {
       el.textContent += activities[actIndex][charIndex++]
-      typingTimer = setTimeout(typeActivity, 80)
+      typingTimer = setTimeout(typeActivity, TYPE_SPEED_MS)
     } else {
       typing = false
-      typingTimer = setTimeout(typeActivity, 1000)
+      typingTimer = setTimeout(typeActivity, WORD_COMPLETE_PAUSE_MS)
     }
   } else {
     if (charIndex > 0) {
       el.textContent = activities[actIndex].slice(0, --charIndex)
-      typingTimer = setTimeout(typeActivity, 40)
+      typingTimer = setTimeout(typeActivity, DELETE_SPEED_MS)
     } else {
       typing = true
       actIndex = (actIndex + 1) % activities.length
-      typingTimer = setTimeout(typeActivity, 400)
+      typingTimer = setTimeout(typeActivity, NEXT_ACTIVITY_DELAY_MS)
     }
   }
 }

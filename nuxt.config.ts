@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   // App Configuration
   app: {
     head: {
-      title: 'Jack George | GIS Engineer & Cloud Architect',
+      title: 'Jacqueline Williams | GIS Engineer & Cloud Architect',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
