@@ -14,7 +14,7 @@
           </div>
           <div class="col col-twothirds bio-col">
             <header class="about-header">
-              <h1 class="about-name">Jacqueline Williams</h1>
+              <h1 class="about-name">Hello, I'm Jackie</h1>
               <p class="about-location">
                 <Icon icon="lucide:map-pin" width="13" height="13" />
                 Greater Paris Area, France
@@ -22,13 +22,12 @@
             </header>
             <div style="height: var(--space-sm);"></div>
             <p class="bio-block">
-              I build <strong>digital products that work</strong>. Sometimes they involve <strong>maps</strong>,
+              I build <strong>digital products</strong>. Sometimes they involve <strong>maps</strong>,
               sometimes <strong>cloud infrastructure</strong>, sometimes <strong>web apps</strong> — often all three.
-              There's often a bit of <strong>SysAdmin</strong>, <strong>DevOps</strong>, and <strong>IaC</strong> sprinkled in too.
-              I usually thrive figuring things out quickly, with real-world constraints, and all in good humour.
-              <br /><em><strong>~ Jack</strong>(<strong>ie</strong>) <strong>of all trades ~</strong></em><br /><br />
-              Thank you for visiting my corner of the internet. There's more behind the scenes I can't show.
-              Please reach out if you'd like to discuss anything you're working on — fellow human behind a screen, take care. 🌍
+              There's usually a bit of <strong>system administration</strong>, <strong>DevOps</strong>, and <strong>infrastructure as code</strong> sprinkled in too.
+              I currently work at a large IT consulting company. My role has exposed me to many different aspects of application design, development, maintenance, and, let's not forget, documentation. <br /><br />
+              You can call me a <em><strong>Jack(ie)-of-all-trades</strong></em>. <br /><br />
+              Thanks for visiting my corner of the internet. The projects here are personal side projects, independent of my day-to-day work. Feel free to reach out with any questions, or simply to share what you're working on. And yes, this website is hosted for free! 🌍
             </p>
           </div>
         </div>

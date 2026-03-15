@@ -113,7 +113,7 @@ const projects = ref([
     showTitle: true,
     label: 'DTM Viewer',
     titleColor: '#4ade80',
-    github: 'https://github.com/jw-rae/digital-terrain-model-viewer',
+    github: 'https://github.com/jw-rae/dtm-viewer',
     demo: '/projects/digital-terrain-model-viewer'
   },
   {
