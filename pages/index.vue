@@ -117,6 +117,17 @@ const projects = ref([
     demo: '/projects/digital-terrain-model-viewer'
   },
   {
+    id: 4,
+    title: 'Examen Civique',
+    description: 'Interactive QCM exam simulation for civic knowledge — test your understanding of civics with dynamic questions and instant feedback.',
+    image: '/thumbnails/examen-civique.png',
+    showTitle: true,
+    label: 'QCM France',
+    titleColor: '#fca5a5',
+    github: 'https://github.com/jw-rae/examen-civique',
+    demo: '/examen-civique'
+  },
+  {
     id: 3,
     title: 'Coming Soon',
     description: 'More projects are on the way.',

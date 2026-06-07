@@ -5,18 +5,8 @@
       "rewrite": "/apps/planisphere/index.html"
     },
     {
-      "route": "/apps/digital-terrain-model-viewer",
-      "rewrite": "/apps/digital-terrain-model-viewer/index.html"
-    },
-    {
       "route": "/index.html",
       "redirect": "/"
-    },
-    {
-      "route": "/api/rss",
-      "headers": {
-        "Cache-Control": "public, max-age=300, stale-while-revalidate=600"
-      }
     },
     {
       "route": "/",
@@ -24,13 +14,9 @@
     }
   ],
   "platform": {
-    "apiRuntime": "node:20"
+    "apiRuntime": "node:18"
   },
   "navigationFallback": {
-    "rewrite": "/api/server",
-    "exclude": [
-      "/apps/digital-terrain-model-viewer/data/*",
-      "/apps/digital-terrain-model-viewer/assets/*"
-    ]
+    "rewrite": "/api/server"
   }
 }
