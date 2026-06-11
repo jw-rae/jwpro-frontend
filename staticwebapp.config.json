@@ -5,6 +5,14 @@
       "rewrite": "/apps/planisphere/index.html"
     },
     {
+      "route": "/apps/azure-guide",
+      "rewrite": "/apps/azure-guide/index.html"
+    },
+    {
+      "route": "/apps/azure-guide/*",
+      "rewrite": "/apps/azure-guide/index.html"
+    },
+    {
       "route": "/index.html",
       "redirect": "/"
     },

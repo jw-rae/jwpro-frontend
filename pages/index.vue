@@ -129,13 +129,24 @@ const projects = ref([
   },
   {
     id: 3,
+    title: 'Azure Review',
+    description: 'Interactive Azure architecture reference — browse architectural decisions, compare cloud services, and explore design patterns for your next project.',
+    image: 'https://placehold.co/640x360/1e293b/475569?text=Azure Guide',
+    showTitle: false,
+    label: 'Azure Guide',
+    titleColor: '#60a5fa',
+    github: 'https://github.com/jw-rae/azure-guide',
+    demo: '/projects/azure-guide'
+  },
+  {
+    id: 3,
     title: 'Coming Soon',
     description: 'More projects are on the way.',
     image: 'https://placehold.co/640x360/1e293b/475569?text=Coming+Soon',
     showTitle: false,
     github: '',
     demo: ''
-  },
+  }
 ])
 
 const nextProject = () => {

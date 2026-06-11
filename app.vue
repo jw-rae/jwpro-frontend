@@ -133,7 +133,7 @@ textarea.cursor-text,
 /* ── Scrollbar theming (respects all color/dark themes) ─────────────── */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border-primary) var(--color-surface-secondary);
+  scrollbar-color: color-mix(in srgb, var(--color-brand-primary-500) 55%, var(--color-border-primary) 45%) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -142,12 +142,16 @@ textarea.cursor-text,
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface-secondary);
+  background: transparent;
+  border-radius: var(--border-radius-full, 9999px);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-primary);
+  background: color-mix(in srgb, var(--color-brand-primary-500) 55%, var(--color-border-primary) 45%);
   border-radius: var(--border-radius-full, 9999px);
+  border: 1px solid transparent;
+  background-clip: content-box;
+  transition: background var(--duration-200) var(--ease-out);
 }
 
 ::-webkit-scrollbar-thumb:hover {
